@@ -65,15 +65,7 @@ async function main() {
   try {
     await run('verify:verify', {
       address,
-      constructorArguments: [
-        deployer.address,
-        '$SPAM',
-        'SPAM',
-        1000000n * 10n ** 18n,
-        100000n,
-        6942000n * 10n ** 18n,
-        ethers.ZeroAddress,
-      ],
+      constructorArguments: [],
     })
   } catch (err) {
     console.log(
