@@ -1,6 +1,6 @@
 import { ContractTransactionResponse } from 'ethers'
 import { HardhatEthersSigner } from '@nomicfoundation/hardhat-ethers/signers'
-import { ethers, run } from 'hardhat'
+import { ethers, run, upgrades } from 'hardhat'
 
 async function printSignerInfo(signer: HardhatEthersSigner) {
   const address = await signer.getAddress()
@@ -25,17 +25,30 @@ function printDeploymentTransaction(
 async function main() {
   // Get network
   const provider = ethers.provider
-  const { name: chainName } = await provider.getNetwork()
-  console.log('Deploying to chain:', chainName)
+  const { chainId } = await provider.getNetwork()
+  console.log('Deploying to chain:', chainId)
   // Get signer
   const [deployer] = await ethers.getSigners()
   await printSignerInfo(deployer)
   // Deploy contract
-  const contractName = 'MyERC721'
-  const contractSymbol = 'MYERC721'
+  const contractName = 'Spam'
   console.log(`Deploying ${contractName}...`)
   const Contract = await ethers.getContractFactory(contractName)
-  const contract = await Contract.deploy(contractName, contractSymbol, deployer)
+  const contract = await upgrades.deployProxy(
+    Contract,
+    [
+      deployer.address,
+      '$SPAM',
+      'SPAM',
+      1000000n * 10n ** 18n,
+      100000n,
+      6942000n * 10n ** 18n,
+      ethers.ZeroAddress,
+    ],
+    {
+      kind: 'transparent',
+    }
+  )
   const deploymentTransaction = contract.deploymentTransaction()
   if (!deploymentTransaction) {
     throw new Error('Deployment transaction is null')
@@ -52,7 +65,7 @@ async function main() {
   try {
     await run('verify:verify', {
       address,
-      constructorArguments: [contractName, contractSymbol, deployer.address],
+      constructorArguments: [],
     })
   } catch (err) {
     console.log(
