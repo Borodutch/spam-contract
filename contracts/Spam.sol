@@ -18,7 +18,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20FlashMin
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
-import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol";
 
 /// @custom:security-contact spam@bdut.ch
 contract Spam is
@@ -30,7 +30,7 @@ contract Spam is
   ERC20PermitUpgradeable,
   ERC20VotesUpgradeable,
   ERC20FlashMintUpgradeable,
-  ReentrancyGuard
+  ReentrancyGuardUpgradeable
 {
   // State
   uint256 public mintRate;
