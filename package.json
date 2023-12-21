@@ -1,6 +1,6 @@
 {
   "name": "@borodutch/spam-contract",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "$SPAM contract",
   "repository": {
     "type": "git",
