@@ -43,7 +43,7 @@ async function main() {
       1000000n * 10n ** 18n,
       100000n,
       6942000n * 10n ** 18n,
-      ethers.ZeroAddress,
+      '0xA175aa625FBc61DaAEE4d631b568Db66581Db3fc',
     ],
     {
       kind: 'transparent',
